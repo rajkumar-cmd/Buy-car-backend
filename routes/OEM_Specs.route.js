@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const OEM_SpecsRouter = express.Router();
 
 OEM_SpecsRouter.post("/add", async (req, res) => {
-    const { 
+    const {
         modelName,
         modelYear,
         price,
@@ -15,14 +15,15 @@ OEM_SpecsRouter.post("/add", async (req, res) => {
         power,
         maxSpeed } = req.body;
     try {
-        const OEM_Specs = new OEM_SpecsModel({ 
+        const OEM_Specs = new OEM_SpecsModel({
             modelName,
             modelYear,
             price,
             availableColor,
             mileage,
             power,
-            maxSpeed });
+            maxSpeed
+        });
         await OEM_Specs.save();
         res.send({ "msg": "OEM_Specs's information Saved" })
     } catch (err) {
@@ -31,19 +32,32 @@ OEM_SpecsRouter.post("/add", async (req, res) => {
 })
 
 OEM_SpecsRouter.get("/", async (req, res) => {
+    const { price, mileage, color } = req.body
     try {
-        const OEM_Specs = await OEM_SpecsModel.find({})
-        res.send({ OEM_Specs })
+        if (!price && !color) {
+            const [min,max] = mileage.split("-")
+            const OEM_Specs = await OEM_SpecsModel.where("mileage").gte(min).lte(max)
+            return res.send({ OEM_Specs })
+        }
+        if (!mileage && !color) {
+            const [min,max] = price.split("-")
+            const OEM_Specs = await OEM_SpecsModel.where("price" ).gte(min).lte(max)
+            return res.send({ OEM_Specs })
+        }
+        if (!price && !mileage) {
+            const OEM_Specs = await OEM_SpecsModel.find({ availableColor:color })
+            return res.send({ OEM_Specs })
+        }
     } catch (err) {
         res.send({ "msg": err })
     }
 })
 
 OEM_SpecsRouter.get("/find/:id", async (req, res) => {
-    const id=req.params.id;
+    const id = req.params.id;
     try {
-        const post=await OEM_SpecsModel.find({"_id":id})
-        res.send({"POST":post})
+        const post = await OEM_SpecsModel.find({ "_id": id })
+        res.send({ "POST": post })
     } catch (err) {
         res.send({ "msg": err })
     }
