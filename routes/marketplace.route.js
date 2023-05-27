@@ -49,7 +49,7 @@ marketplaceRouter.get("/", async (req, res) => {
     }
 })
 
-marketplaceRouter.get("/update/:id", async (req, res) => {
+marketplaceRouter.patch("/update/:id", async (req, res) => {
     const payload=req.body;
     const id=req.params;
     try {
@@ -60,7 +60,7 @@ marketplaceRouter.get("/update/:id", async (req, res) => {
     }
 })
 
-marketplaceRouter.get("/delete/:id", async (req, res) => {
+marketplaceRouter.delete("/delete/:id", async (req, res) => {
     const id=req.params;
     try {
         await marketplaceModel.findByIdAndDelete(id)
