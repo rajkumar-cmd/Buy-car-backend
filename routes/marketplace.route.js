@@ -49,6 +49,16 @@ marketplaceRouter.get("/", async (req, res) => {
     }
 })
 
+marketplaceRouter.get("/find/:id", async (req, res) => {
+    const id=req.params.id;
+    try {
+        const post=await marketplaceModel.find({"_id":id})
+        res.send({"POST":post})
+    } catch (err) {
+        res.send({ "msg": err })
+    }
+})
+
 marketplaceRouter.patch("/update/:id", async (req, res) => {
     const payload=req.body;
     const id=req.params.id;
