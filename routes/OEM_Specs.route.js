@@ -39,6 +39,16 @@ OEM_SpecsRouter.get("/", async (req, res) => {
     }
 })
 
+OEM_SpecsRouter.get("/find/:id", async (req, res) => {
+    const id=req.params.id;
+    try {
+        const post=await OEM_SpecsModel.find({"_id":id})
+        res.send({"POST":post})
+    } catch (err) {
+        res.send({ "msg": err })
+    }
+})
+
 module.exports = {
     OEM_SpecsRouter
 }
