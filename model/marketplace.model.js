@@ -28,7 +28,6 @@ module.exports={
 //     "desc":["jj","ll","oo"],
 //     "KMs_on_Odometer":60000,
 //     "major_Scratches":"hello",
-//     "original_Paint":"Red",
 //     "Number_of_accidents":70000,
 //     "Number_of_previous_buyers":85000,
 //     "registration_Place":"hhjjjkkkk"

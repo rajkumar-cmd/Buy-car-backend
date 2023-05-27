@@ -39,6 +39,14 @@ marketplaceRouter.post("/add", async (req, res) => {
         res.send({ "msg": err })
     }
 })
+marketplaceRouter.get("/", async (req, res) => {
+    try {
+        const marketplaces = await marketplaces.find({})
+        res.send({ marketplaces })
+    } catch (err) {
+        res.send({ "msg": err })
+    }
+})
 
 module.exports = {
     marketplaceRouter
