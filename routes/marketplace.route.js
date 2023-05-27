@@ -63,7 +63,7 @@ marketplaceRouter.get("/update/:id", async (req, res) => {
 marketplaceRouter.get("/delete/:id", async (req, res) => {
     const id=req.params.id;
     try {
-        await marketplaceModel.findByIdAndDelete({"_id":id},payload)
+        await marketplaceModel.findByIdAndDelete({"_id":id})
         res.send("Deleted Sucessfully")
     } catch (err) {
         res.send({ "msg": err })
