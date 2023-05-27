@@ -51,9 +51,9 @@ marketplaceRouter.get("/", async (req, res) => {
 
 marketplaceRouter.patch("/update/:id", async (req, res) => {
     const payload=req.body;
-    const id=req.params;
+    const id=req.params.id;
     try {
-        await marketplaceModel.findByIdAndUpdate(id,payload)
+        await marketplaceModel.findByIdAndUpdate({"_id":id},payload)
         res.send("Updated Sucessfully")
     } catch (err) {
         res.send({ "msg": err })
@@ -61,9 +61,10 @@ marketplaceRouter.patch("/update/:id", async (req, res) => {
 })
 
 marketplaceRouter.delete("/delete/:id", async (req, res) => {
-    const id=req.params;
+    const id=req.params.id;
+    console.log(req.params)
     try {
-        await marketplaceModel.findByIdAndDelete(id)
+        await marketplaceModel.findByIdAndDelete({"_id":id})
         res.send("Deleted Sucessfully")
     } catch (err) {
         res.send({ "msg": err })
