@@ -32,26 +32,9 @@ OEM_SpecsRouter.post("/add", async (req, res) => {
 })
 
 OEM_SpecsRouter.get("/", async (req, res) => {
-    const { price, mileage, color } = req.body
     try {
-        if(!price && !color && !mileage){
-            const OEM_Specs = await OEM_SpecsModel.find({})
-            return res.send({ OEM_Specs })
-        }
-        if (!price && !color) {
-            const [min,max] = mileage.split("-")
-            const OEM_Specs = await OEM_SpecsModel.where("mileage").gte(min).lte(max)
-            return res.send({ OEM_Specs })
-        }
-        if (!mileage && !color) {
-            const [min,max] = price.split("-")
-            const OEM_Specs = await OEM_SpecsModel.where("price" ).gte(min).lte(max)
-            return res.send({ OEM_Specs })
-        }
-        if (!price && !mileage) {
-            const OEM_Specs = await OEM_SpecsModel.find({ availableColor:color })
-            return res.send({ OEM_Specs })
-        }
+        const OEM_Specs = await OEM_SpecsModel.find({})
+        return res.send({ OEM_Specs })
     } catch (err) {
         res.send({ "msg": err })
     }
